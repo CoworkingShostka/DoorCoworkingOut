@@ -24,6 +24,7 @@ using Windows.Storage.Streams;
 using Windows.Web.Http;
 
 
+
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
 
 namespace DoorCoworkingOut
@@ -52,7 +53,9 @@ namespace DoorCoworkingOut
             Current = this;
 
             this.client = new MqttClient("192.168.1.2");
-            this.client.Connect(Guid.NewGuid().ToString());
+            //this.client.Connect(Guid.NewGuid().ToString());
+            string clientId = Guid.NewGuid().ToString();
+            client.Connect(clientId);
 
             // register to message received
             client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
@@ -103,22 +106,23 @@ namespace DoorCoworkingOut
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            string qFilter = SerialDevice.GetDeviceSelector("COM3");
-            DeviceInformationCollection devices = await DeviceInformation.FindAllAsync(qFilter);
+            ;
+            //string qFilter = SerialDevice.GetDeviceSelector("COM3");
+            //DeviceInformationCollection devices = await DeviceInformation.FindAllAsync(qFilter);
 
-            if (devices.Any())
-            {
-                string deviceId = devices.First().Id;
+            //if (devices.Any())
+            //{
+            //    string deviceId = devices.First().Id;
 
-                await OpenPort(deviceId);
-            }
+            //    await OpenPort(deviceId);
+            //}
 
-            ReadCancellationTokenSource = new CancellationTokenSource();
+            //ReadCancellationTokenSource = new CancellationTokenSource();
 
-            while (true)
-            {
-                await Listen();
-            }
+            //while (true)
+            //{
+            //    await Listen();
+            //}
         }
 
         private async Task OpenPort(string deviceId)
