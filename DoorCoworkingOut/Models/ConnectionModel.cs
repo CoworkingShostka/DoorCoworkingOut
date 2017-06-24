@@ -22,6 +22,7 @@ using Windows.Devices.SerialCommunication;
 using Windows.Devices.Enumeration;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
+using System.Net;
 
 namespace Models
 {
@@ -37,9 +38,14 @@ namespace Models
         public async void MqttConnect()
         {
             
+            //client = new MqttClient("test.mosquitto.org");
+
             client = new MqttClient("192.168.1.2");
             client.Connect(Guid.NewGuid().ToString());
 
+            //string clientId = Guid.NewGuid().ToString();
+            //client.Connect(clientId);
+            //client.Publish("Test/Connection", Encoding.UTF8.GetBytes("I'm Connected"));
             // register to message received
             //client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 

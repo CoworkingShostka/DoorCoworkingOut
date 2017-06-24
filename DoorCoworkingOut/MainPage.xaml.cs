@@ -46,20 +46,8 @@ namespace DoorCoworkingOut
             // in order to call methods that are in this class.
             Current = this;
 
-            //int val = 0;
-            //Task.Run(async() =>
-            //{
-            //    while (true)
-            //    {
-
-            //        this.client.Publish("test", Encoding.UTF8.GetBytes(val.ToString()));
-            //        val++;
-            //        await Task.Delay(5000);
-            //    }
-            //});
-
             MyFrame.Navigate(typeof(Connection));
-            //TitleText.Text = "Connection";
+            TitleText.Text = "Connection";
             BackButton.Visibility = Visibility.Collapsed;
             //StatusTextBlock.Text = "Starting";
             

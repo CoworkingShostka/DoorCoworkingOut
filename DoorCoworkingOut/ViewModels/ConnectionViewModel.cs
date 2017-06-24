@@ -7,7 +7,7 @@ using Models;
 
 namespace ViewModels
 {
-    class ConnectionViewModel
+    class ConnectionViewModel : NotificationBase
     {
 
     }
