@@ -28,7 +28,7 @@ namespace DoorCoworkingOut
     public sealed partial class Connection : Page
     {
         //MainPage mainPage = new MainPage();
-        ConnectionViewModel CVM = new ConnectionViewModel();
+        //ConnectionViewModel CVM = new ConnectionViewModel();
        
         public Connection()
         {
@@ -50,7 +50,7 @@ namespace DoorCoworkingOut
 
         private void Connect_Click(object sender, RoutedEventArgs e)
         {
-            CVM.MqttConnect();
+            //CVM.MqttConnect();
             //connection.SerialConnection();
         }
 

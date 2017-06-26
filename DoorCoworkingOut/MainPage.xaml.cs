@@ -37,8 +37,8 @@ namespace DoorCoworkingOut
     {
         public static MainPage Current;
 
-        //ConnectionViewModel connection = new ConnectionViewModel();
-
+        MainViewModel connection = new MainViewModel();
+        
 
         public MainPage()
         {
@@ -52,6 +52,7 @@ namespace DoorCoworkingOut
             TitleText.Text = "Connection";
             BackButton.Visibility = Visibility.Collapsed;
             //StatusTextBlock.Text = "Starting";
+            
             
         }
 
