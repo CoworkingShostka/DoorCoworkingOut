@@ -21,10 +21,11 @@ namespace ViewModels
         //    }
 
         //}
+        public ConnectionModel connectionModel = new ConnectionModel();
 
         public MainViewModel()
         {
-            ConnectionModel connectionModel = new ConnectionModel();
+            
             connectionModel.MqttConnect();
             //connectionModel.SerialConnection();
         }

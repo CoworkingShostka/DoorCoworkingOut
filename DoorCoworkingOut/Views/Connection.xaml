@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Loaded="Page_Loaded"
     
+    xmlns:viewModels="using:ViewModels"
     >
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -18,7 +18,7 @@
 
         <StackPanel Orientation="Vertical">
             <Button Name="ConnectButton" Content="Connect" Click="Connect_Click" />
-            <!--<TextBlock Name="MqttStatus" Text="{x:Bind CVM.mqttStatus, Mode=OneWay}" />-->
+            <TextBlock Name="MqttStatus" Text="{x:Bind CVM.mqttStatus, Mode=OneWay}" />
             <TextBlock Name="txtPortData" Text="" />
             <TextBlock Name="txtStatus1" Text="" />
             <TextBlock Name="txtStatus2" Text="" />

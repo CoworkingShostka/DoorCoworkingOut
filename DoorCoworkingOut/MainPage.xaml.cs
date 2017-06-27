@@ -65,12 +65,12 @@ namespace DoorCoworkingOut
         //    return enc.GetString(mqttMessage);
         //}
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            //connection.MqttConnect();
-            //connection.SerialConnection();
+        //private async void Page_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    //connection.MqttConnect();
+        //    //connection.SerialConnection();
 
-        }
+        //}
 
         private void IconsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -104,13 +104,13 @@ namespace DoorCoworkingOut
 
         
 
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {
-            //CancelReadTask();
+        //private void Page_Unloaded(object sender, RoutedEventArgs e)
+        //{
+        //    //CancelReadTask();
             
-            //connection.CancelReadTask();
+        //    //connection.CancelReadTask();
 
-        }
+        //}
 
         private void UpdateButton_Click(object sender, RoutedEventArgs e)
         {

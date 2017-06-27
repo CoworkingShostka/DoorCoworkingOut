@@ -35,7 +35,7 @@ namespace Models
         DataWriter dataWriteObject = null;
         DataReader dataReaderObject = null;
 
-        private string _mqttStatus;
+        static private string _mqttStatus;
         public string mqttStatus
         {
             get { return _mqttStatus; }

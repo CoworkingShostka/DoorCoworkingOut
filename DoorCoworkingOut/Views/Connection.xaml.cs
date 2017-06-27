@@ -28,8 +28,8 @@ namespace DoorCoworkingOut
     public sealed partial class Connection : Page
     {
         //MainPage mainPage = new MainPage();
-        //ConnectionViewModel CVM = new ConnectionViewModel();
-       
+        ConnectionViewModel CVM = new ConnectionViewModel();
+
         public Connection()
         {
             this.InitializeComponent();
@@ -41,12 +41,12 @@ namespace DoorCoworkingOut
             
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            ;
-            //CVM.MqttConnect();
+        //private void Page_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    ;
+        //    //CVM.MqttConnect();
             
-        }
+        //}
 
         private void Connect_Click(object sender, RoutedEventArgs e)
         {

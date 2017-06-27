@@ -16,10 +16,9 @@ namespace ViewModels
 {
     public class ConnectionViewModel : NotificationBase
     {
-        public ConnectionViewModel()
-        {
-            
-        }
+
+
+
         //private ConnectionModel _connectionModel;
         //public ConnectionModel connectionModel
         //{
@@ -31,13 +30,27 @@ namespace ViewModels
 
 
         //}
+        public ConnectionModel connectionModel = new ConnectionModel();
+        //public string _mqttStatus { get; set; }
+        private string _mqttStatus;
+        public string mqttStatus
+        {
+            get { return _mqttStatus; }
+            set
+            {
+                SetProperty(ref _mqttStatus, value);
+            }
 
-        //public ConnectionViewModel()
-        //{
-        //    ConnectionModel connectionModel = new ConnectionModel();
+
+        }
+
+        public ConnectionViewModel()
+        {
+            //public string _mqttStatus { set => connectionModel.mqttStatus; }
+            mqttStatus = connectionModel.mqttStatus;
 
 
-        //}
+        }
     }
 }
 
