@@ -18,6 +18,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Text;
+using ViewModels;
 
 namespace DoorCoworkingOut
 {
@@ -27,7 +28,7 @@ namespace DoorCoworkingOut
     sealed partial class App : Application
     {
 
-        
+        //
         /// <summary>
         /// Инициализирует одноэлементный объект приложения.  Это первая выполняемая строка разрабатываемого
         /// кода; поэтому она является логическим эквивалентом main() или WinMain().
@@ -37,7 +38,6 @@ namespace DoorCoworkingOut
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            
         }
 
         /// <summary>
