@@ -23,7 +23,7 @@ using Windows.Devices.Enumeration;
 using Windows.Storage.Streams;
 using Windows.Web.Http;
 
-//using Models;
+using Models;
 using ViewModels;
 
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x419
@@ -37,13 +37,14 @@ namespace DoorCoworkingOut
     {
         public static MainPage Current;
 
-        MainViewModel connection = new MainViewModel();
+       // MainViewModel connection = new MainViewModel();
         
 
         public MainPage()
         {
             this.InitializeComponent();
-
+            this.connection = new ConnectionModel();
+            connection.MqttConnect();
             // This is a static public property that allows downstream pages to get a handle to the MainPage instance
             // in order to call methods that are in this class.
             Current = this;
@@ -56,7 +57,7 @@ namespace DoorCoworkingOut
             
         }
 
-        
+        public ConnectionModel connection { get; set; }
 
         //декодируем данные (обязательно)
         //public string decodeMqttMess()

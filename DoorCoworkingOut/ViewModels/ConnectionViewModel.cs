@@ -11,13 +11,15 @@ using Windows.Devices.SerialCommunication;
 using Windows.Storage.Streams;
 using ViewModels;
 using Models;
+using System.ComponentModel;
+using Windows.UI.Xaml;
 
 namespace ViewModels
 {
-    public class ConnectionViewModel : NotificationBase
+    public class ConnectionViewModel : INotifyPropertyChanged
     {
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
 
         //private ConnectionModel _connectionModel;
         //public ConnectionModel connectionModel
@@ -31,23 +33,71 @@ namespace ViewModels
 
         //}
         public ConnectionModel connectionModel = new ConnectionModel();
-        //public string _mqttStatus { get; set; }
+
         private string _mqttStatus;
         public string mqttStatus
         {
             get { return _mqttStatus; }
             set
             {
-                SetProperty(ref _mqttStatus, value);
+                _mqttStatus = value;
+                RaisePropertyChanged("mqttStatus");
             }
 
 
+        }
+
+        //private string _serialPortStatus;
+        //public string serialPortStatus
+        //{
+        //    get { return _serialPortStatus; }
+        //    set
+        //    {
+        //        SetProperty(ref _serialPortStatus, value);
+        //    }
+        //}
+
+        //private string _serialPortData;
+        //public string serialPortData
+        //{
+        //    get { return _serialPortData; }
+        //    set
+        //    {
+        //        SetProperty(ref _serialPortData, value);
+        //    }
+        //}
+
+        private string _mqttData;
+        public string mqttData
+        {
+            get { return _mqttData; }
+            set 
+            {
+                _mqttData = value;
+                RaisePropertyChanged("mqttData");
+
+            }
+        }
+
+        protected async void RaisePropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                //await Window.Current.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                //{
+                    PropertyChanged(this, new PropertyChangedEventArgs(name));
+            //});
+
+        }
         }
 
         public ConnectionViewModel()
         {
             //public string _mqttStatus { set => connectionModel.mqttStatus; }
             mqttStatus = connectionModel.mqttStatus;
+            //serialPortStatus = connectionModel.serialPortStatus;
+            //serialPortData = connectionModel.serialPortData;
+            mqttData = connectionModel.mqttData;
 
 
         }

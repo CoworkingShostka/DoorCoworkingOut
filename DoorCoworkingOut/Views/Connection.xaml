@@ -7,23 +7,51 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     
-    xmlns:viewModels="using:ViewModels"
     >
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="#FFF0F0F0">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
 
-        <StackPanel Orientation="Vertical">
-            <Button Name="ConnectButton" Content="Connect" Click="Connect_Click" />
-            <TextBlock Name="MqttStatus" Text="{x:Bind CVM.mqttStatus, Mode=OneWay}" />
-            <TextBlock Name="txtPortData" Text="" />
-            <TextBlock Name="txtStatus1" Text="" />
-            <TextBlock Name="txtStatus2" Text="" />
+        </Grid.ColumnDefinitions>
 
-        </StackPanel>
-        
+
+        <!--<Button Name="ConnectButton" Content="Connect" Click="Connect_Click" />-->
+        <TextBlock Text="MQTT Connection status:" Margin="10" />
+        <TextBlock Grid.Column="1" Name="MqttStatus" 
+                   
+                   Text="{x:Bind CVM.mqttStatus, Mode=OneWay}"
+                   VerticalAlignment="Center" />
+        <!--Text="{Binding mqttStatus, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"-->
+        <!--Text="{x:Bind CVM.mqttStatus, Mode=OneWay}"-->
+
+        <!--<TextBlock Grid.Row="1" Text="SerialPort Connection status:" Margin="10" />
+        <TextBlock Grid.Row="1" Grid.Column="1" Name="SerialPortStatus"
+                   Text="{x:Bind CVM.serialPortStatus, Mode=OneWay}"
+                   VerticalAlignment="Center"/>
+
+        <TextBlock Grid.Row="2" Text="SerialPort data:" Margin="10" />
+        <TextBlock Grid.Row="2" Grid.Column="1" Name="SerialPortData"
+                   Text="{x:Bind CVM.serialPortData, Mode=OneWay}"
+                   VerticalAlignment="Center"/>-->
+
+        <TextBlock Grid.Row="3" Text="MQTT response data:" Margin="10" />
+        <TextBlock Grid.Row="3" Grid.Column="1" Name="MqttData"
+                   
+                   Text="{x:Bind CVM.mqttData, Mode=OneWay}"
+                   VerticalAlignment="Center"/>
+            <!--Text="{Binding mqttData, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"-->
+        <!--Text="{x:Bind CVM.mqttData, Mode=OneWay}"-->
+
+
+
     </Grid>
 </Page>

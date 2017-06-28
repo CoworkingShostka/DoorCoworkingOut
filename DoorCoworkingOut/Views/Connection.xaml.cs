@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 using ViewModels;
+using Models;
+using DoorCoworkingOut;
 
 //using Models;
 // Документацию по шаблону элемента "Пустая страница" см. по адресу https://go.microsoft.com/fwlink/?LinkId=234238
@@ -28,24 +30,29 @@ namespace DoorCoworkingOut
     public sealed partial class Connection : Page
     {
         //MainPage mainPage = new MainPage();
-        ConnectionViewModel CVM = new ConnectionViewModel();
+        //ConnectionViewModel CVM = new ConnectionViewModel();
+
 
         public Connection()
         {
             this.InitializeComponent();
-            
+            this.CVM = new ConnectionModel();
             //CVM.MqttConnect();
             //connection.SerialConnection();
-                
-                     
-            
+            //this.DataContext = CVM;
+            //this.DataContext = MainPage.Current;
+
+
         }
+        
+        public ConnectionModel CVM {get;  set; }
+
 
         //private void Page_Loaded(object sender, RoutedEventArgs e)
         //{
         //    ;
         //    //CVM.MqttConnect();
-            
+
         //}
 
         private void Connect_Click(object sender, RoutedEventArgs e)

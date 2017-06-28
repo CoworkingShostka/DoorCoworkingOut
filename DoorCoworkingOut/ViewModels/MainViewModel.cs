@@ -8,7 +8,7 @@ using Models;
 
 namespace ViewModels
 {
-    class MainViewModel : NotificationBase
+    public class MainViewModel : NotificationBase
     {
 
         //private ConnectionModel _connectionModel;

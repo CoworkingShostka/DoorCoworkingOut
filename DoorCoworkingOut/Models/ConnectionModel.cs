@@ -24,61 +24,129 @@ using Windows.Storage.Streams;
 using Windows.Web.Http;
 using System.Net;
 using ViewModels;
+using System.ComponentModel;
 
 namespace Models
 {
-    public class ConnectionModel : NotificationBase
+    public class ConnectionModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MqttClient client;
         public CancellationTokenSource ReadCancellationTokenSource;
         private SerialDevice serialPort = null;
         DataWriter dataWriteObject = null;
         DataReader dataReaderObject = null;
 
-        static private string _mqttStatus;
+        static private string _mqttStatus = "Not Connected";
         public string mqttStatus
         {
             get { return _mqttStatus; }
             set
             {
-                SetProperty(ref _mqttStatus, value);
+                _mqttStatus = value;
+                RaisePropertyChanged("mqttStatus");
             }
         }
 
-        public async void MqttConnect()
+        //static private string _serialPortStatus = "Not Connected";
+        //public string serialPortStatus
+        //{
+        //    get { return _serialPortStatus; }
+        //    set
+        //    {
+        //        SetProperty(ref _serialPortStatus, value);
+        //    }
+        //}
+
+        //static private string _serialPortData = "No Data";
+        //public string serialPortData
+        //{
+        //    get { return _serialPortData; }
+        //    set
+        //    {
+        //        SetProperty(ref _serialPortData, value);
+        //    }
+        //}
+
+        static string _mqttData = "No Data";
+        public string mqttData
+        {
+            get { return _mqttData; }
+            set
+            {
+                _mqttData = value;
+                
+                RaisePropertyChanged("mqttData");
+                
+            }
+        }
+
+        protected void RaisePropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                //await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                //{
+                    PropertyChanged(this, new PropertyChangedEventArgs(name));
+                //});
+                
+
+            }
+        }
+
+        public void MqttConnect()
         {
 
             //client = new MqttClient("test.mosquitto.org");
-
-            client = new MqttClient("192.168.1.2");
+            string serverAddr = "192.168.1.2";
+            client = new MqttClient(serverAddr);
             client.Connect(Guid.NewGuid().ToString());
 
             if (client.IsConnected)
             {
-                mqttStatus = "I`m Connected";
+                mqttStatus = "I`m Connected to " + serverAddr;
             }
             //string clientId = Guid.NewGuid().ToString();
             //client.Connect(clientId);
             //client.Publish("Test/Connection", Encoding.UTF8.GetBytes("I'm Connected"));
             // register to message received
-            //client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+            client.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 
-            // subscribe to the topic "/home/temperature" with QoS 2
-            //client.Subscribe(new string[] { "AS/DoorCoworcingOut/server_response" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+            // subscribe to the topic "//" with QoS 0
+            client.Subscribe(new string[] { "AS/DoorCoworkingOut/server_response" }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
+
+            client.Subscribe(new string[] { "Test/response" }, new byte[] { MqttMsgBase.QOS_LEVEL_AT_MOST_ONCE });
 
         }
 
         byte[] mqttMessage;
-        //string mqttTopic;
+        string mqttTopic;
         string mqttMessageConv;
 
-        void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
+        async void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
-            //mqttMessage = e.Message;
-            //mqttTopic = e.Topic;
+            mqttMessage = e.Message;
+            mqttTopic = e.Topic;
             //mqttMessageConv = decodeMqttMess();
             //StatusTextBlock.Text = Encoding.UTF8.GetString(mqttMessage);
             //sendToPort(Encoding.UTF8.GetString(mqttMessage));
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                //Do some UI-code that must be run on the UI thread.
+                mqttData = Encoding.UTF8.GetString(mqttMessage);
+            });
+
+            //await Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            //{
+            //    mqttData = Encoding.UTF8.GetString(mqttMessage);
+            //});
+
+            //await Window.Current.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            //{
+            //    mqttData = Encoding.UTF8.GetString(mqttMessage);
+            //});
+
         }
 
 
@@ -95,7 +163,7 @@ namespace Models
             }
 
             ReadCancellationTokenSource = new CancellationTokenSource();
-
+            
             while (true)
             {
                 await Listen();
@@ -122,7 +190,7 @@ namespace Models
         private async Task OpenPort(string deviceId)
         {
             serialPort = await SerialDevice.FromIdAsync(deviceId);
-
+            
             if (serialPort != null)
             {
                 serialPort.WriteTimeout = TimeSpan.FromMilliseconds(100);
@@ -134,6 +202,7 @@ namespace Models
                 serialPort.Handshake = SerialHandshake.None;
                 //Connection.txtStatus.Text = "Serial port configured successfully";
                 //StatusTextBlock.Text = "Serial port configured successfully";
+                //serialPortStatus = "I`m Connected via COM3";
             }
         }
 
@@ -181,6 +250,8 @@ namespace Models
                 if ((fstLetter >= 0) && (lstLetter > 0)) strFromPort = strFromPort.Substring(fstLetter, lstLetter - fstLetter);
 
                 this.client.Publish("AS/DoorCoworkingOut/cardID", Encoding.UTF8.GetBytes(strFromPort));
+                
+                
                 //StatusTextBlock.Text = strFromPort;
 
                 //txtPortData.Text = strFromPort;
